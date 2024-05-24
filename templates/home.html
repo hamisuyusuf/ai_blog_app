@@ -31,7 +31,7 @@
             width: 100px;
             height: 100px;
             margin: 110px auto 0;
-            border:solid 10px #8822aa;
+            border:solid 10px #208b20;
             border-radius: 50%;
             border-right-color: transparent;
             border-bottom-color: transparent;
@@ -59,7 +59,8 @@
             </h1>
         </div>
         <div>
-            <a href="#" class="text-white hover:underline"> Logout</a>
+            <a href="#" class="text-white hover:underline"> Welcome {{user.username}}</a>
+            <a href="logout" class="text-white hover:underline"> Logout</a>
         </div>
 
     </nav>
@@ -109,7 +110,47 @@
 
 
     <footer class="text-center p-4 text-black mt-6">
-        Powered by <a href="https://www.youtube.com/@Wero_Tech">WERO_TECH </a>
+        Powered by <a href="https://www.youtube.com/@Wero_Tech"> @WERO_TECH </a>
     </footer>
+
+    <script>
+        document.getElementById('generateBlogButton').addEventListener('click', async () => {
+
+
+            const youtubelink = document.getElementById('youtubelink').value;
+            const blogContent = document.getElementById('blogContent');
+
+            if(youtubelink) {
+                document.getElementById('loading-circle').style.display = 'block';
+                
+                // clear previous content
+                blogContent.innerHTML = '';
+
+                const endpointUrl = '/generate-blog';
+
+                try {
+                    const response = await fetch(endpointUrl, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ link: youtubelink })
+                    });
+
+                    const data = await response.json();
+
+                    blogContent.innerHTML = data.content;
+                    
+                } catch {error} {
+                    console.error("Error occurred:", error);
+                    alert("Something went wrong, Please try again later.");
+                    
+                }
+                document.getElementById('loading-circle').style.display = 'none';
+            } else {
+                alert("Please enter a Youtube link.");
+            }
+        });
+    </script>
 </body>
 </html>
