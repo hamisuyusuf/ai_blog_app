@@ -10,6 +10,7 @@ from pytube import YouTube
 import os 
 import assemblyai as aai
 import openai
+from .models import BlogPost
 
 # Create your views here.
 @login_required
@@ -40,6 +41,14 @@ def generate_blog(request):
             return JsonResponse({'error': " Failed to generate transcript "}, status=500)
         
         # Save the generated_blog to DB
+        new_blog_article = BlogPost.objects.create(
+            user=request.user,
+            youtube_title=title,
+            youtube_link=yt_link,
+            generated_content=blog_content,
+        )
+        new_blog_article.save()
+
 
         # return blog article as a response 
         return JsonResponse({'content': blog_content})
@@ -88,6 +97,16 @@ def generate_blog_from_transcription(transcription):
 
     return generate_content 
 
+def blog_list(request):
+    blog_articles = BlogPost.objects.filter(user=request.user)
+    return render(request, "all-blogs.html", {'blog_articles': blog_articles })
+
+def blog_details(request, pk):
+    blog_article_detail = BlogPost.objects.get(id=pk)
+    if request.user == blog_article_detail.user:
+        return render(request, 'blog-details.html', {'blog_article_detail': blog_article_detail})
+    else:
+        return redirect('/')
 
 def user_login(request):
     if request.method == 'POST':
