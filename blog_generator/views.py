@@ -12,6 +12,7 @@ import assemblyai as aai
 import openai
 from .models import BlogPost
 
+
 # Create your views here.
 @login_required
 def home(request):
@@ -25,7 +26,7 @@ def generate_blog(request):
             yt_link = data['link']
             
         except (KeyError, json.JSONDecodeError):
-            return JsonResponse({'error': 'Invalid data method'}, status=400)
+            return JsonResponse({'error': 'Invalid data sent'}, status=400)
         
         # Get the Youtube  title
         title = yt_title(yt_link)
@@ -82,20 +83,66 @@ def get_transcription(link):
 
     return transcript.text
 
+# def generate_blog_from_transcription(transcription):
+#     openai.api_key = "sk-proj-pzaQhlNT65z1FReAxxLlT3BlbkFJfHyGRwWEA7HfCRv7YmJn"
+
+#     prompt = f"Based on the following transcript from a youtube video, i want you to write a comprhensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
+
+#     # response = openai.Completion.create(
+#     #     model="text-ada-001",
+#     #     prompt=prompt,
+#     #     max_tokens=1000
+#     # )
+
+
+#     response = openai.ChatCompletion.create(
+#         model="gpt-3.5-turbo",
+#         messages=[
+#             {"role": "system", "content": "You are a blog post generator."},
+#             {"role": "user", "content": prompt},
+#         ],
+#         max_tokens=1000
+#     )
+
+#     # Extract the generated content
+#     # generate_content = response.choices[0].text.strip()
+
+#     generate_content = response.choices[0].message['content'].strip()
+
+#     return generate_content 
+
+# Load environment variables from a .env file
+
+
 def generate_blog_from_transcription(transcription):
-    openai.api_key = "sk-proj-pzaQhlNT65z1FReAxxLlT3BlbkFJfHyGRwWEA7HfCRv7YmJn"
+    # Ensure the API key is set in the environment variables
+    openai.api_key = openai.api_key = "sk-proj-WCnwOAcA6K1HtsimeFD8T3BlbkFJ7Cvb1pfYAI7osr7pKfxf"
 
-    prompt = f"Based on the following transcript from a youtube video, i want you to write a comprhensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
-
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=prompt,
-        max_tokens=1000
+    # Create the prompt
+    prompt = (
+        f"Based on the following transcript from a YouTube video, write a comprehensive blog article. "
+        f"Write it based on the transcript, but don't make it look like a YouTube video. "
+        f"Make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
     )
 
-    generate_content = response.choices[0].text.strip()
+    try:
+        # Call the new ChatCompletion endpoint
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a blog post generator."},
+                {"role": "user", "content": prompt},
+            ],
+            max_tokens=1000
+        )
 
-    return generate_content 
+        # Extract the generated content
+        generated_content = response.choices[0].message['content'].strip()
+        return generated_content
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+        return None
 
 def blog_list(request):
     blog_articles = BlogPost.objects.filter(user=request.user)
