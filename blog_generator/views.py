@@ -74,7 +74,7 @@ def  download_audio(link):
 def get_transcription(link):
     audio_file = download_audio(link)
 
-    aai.settings.api_key = "db31c1331d1f4e42a157df56ecacd095"
+    aai.settings.api_key =  os.environ.get("TRANS_API_KEY")
     transcriber = aai.Transcriber()
     transcript = transcriber.transcribe(audio_file)
 
@@ -116,7 +116,8 @@ def get_transcription(link):
 
 def generate_blog_from_transcription(transcription):
     # Ensure the API key is set in the environment variables
-    openai.api_key = openai.api_key = "sk-proj-WCnwOAcA6K1HtsimeFD8T3BlbkFJ7Cvb1pfYAI7osr7pKfxf"
+    
+    openai.api_key = openai.api_key =  os.environ.get("OPENAI_KEY")
 
     # Create the prompt
     prompt = (

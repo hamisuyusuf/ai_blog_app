@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 
 """
 
+import dj_database_url
 from pathlib import Path
 import os
 
@@ -82,18 +83,20 @@ WSGI_APPLICATION = 'ai_blog_app.wsgi.application'
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'nryde_db',
+#         'USER': 'hamisu',
+#         'PASSWORD': 'my_password',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'nryde_db',
-        'USER': 'hamisu',
-        'PASSWORD': 'my_password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
+    "default": dj_database_url.parse(os.environ.get("DATABASE_URL"))
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
