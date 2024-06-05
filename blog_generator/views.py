@@ -192,6 +192,9 @@ def user_signup(request):
             return render(request, 'signup.html', {'error_message':error_message})
     return render(request, 'signup.html')
 
+def about_us(request):
+    return render(request, 'aboutus.html')
+
 def user_logout(request):
     logout(request)
     return redirect('/')
