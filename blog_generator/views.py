@@ -78,40 +78,6 @@ def get_transcription(link):
     transcriber = aai.Transcriber()
     transcript = transcriber.transcribe(audio_file)
 
-    # transcript = transcriber.transcribe("https://storage.googleapis.com/aai-web-samples/news.mp4")
-    # # transcript = transcriber.transcribe("./my-local-audio-file.wav")
-
-    return transcript.text
-
-# def generate_blog_from_transcription(transcription):
-#     openai.api_key = 
-
-#     prompt = f"Based on the following transcript from a youtube video, i want you to write a comprhensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
-
-#     # response = openai.Completion.create(
-#     #     model="text-ada-001",
-#     #     prompt=prompt,
-#     #     max_tokens=1000
-#     # )
-
-
-#     response = openai.ChatCompletion.create(
-#         model="gpt-3.5-turbo",
-#         messages=[
-#             {"role": "system", "content": "You are a blog post generator."},
-#             {"role": "user", "content": prompt},
-#         ],
-#         max_tokens=1000
-#     )
-
-#     # Extract the generated content
-#     # generate_content = response.choices[0].text.strip()
-
-#     generate_content = response.choices[0].message['content'].strip()
-
-#     return generate_content 
-
-# Load environment variables from a .env file
 
 
 def generate_blog_from_transcription(transcription):
