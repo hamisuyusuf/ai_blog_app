@@ -84,7 +84,7 @@ def get_transcription(link):
     return transcript.text
 
 # def generate_blog_from_transcription(transcription):
-#     openai.api_key = "sk-proj-pzaQhlNT65z1FReAxxLlT3BlbkFJfHyGRwWEA7HfCRv7YmJn"
+#     openai.api_key = 
 
 #     prompt = f"Based on the following transcript from a youtube video, i want you to write a comprhensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
 
