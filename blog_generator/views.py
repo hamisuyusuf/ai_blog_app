@@ -1,3 +1,4 @@
+#!/bin/usr/python3
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
@@ -13,7 +14,9 @@ import openai
 from .models import BlogPost
 
 
-# Create your views here.
+# Here are my views .
+
+
 @login_required
 def home(request):
     return render(request, 'home.html')
@@ -62,6 +65,7 @@ def yt_title(link):
     title = yt.title
     return title
 
+# convert video to audio format
 def  download_audio(link):
     yt = YouTube(link)
     video = yt.streams.filter(only_audio=True).first()
@@ -71,6 +75,7 @@ def  download_audio(link):
     os.rename(out_file, new_file)
     return new_file
 
+# Transcribe Audio file
 def get_transcription(link):
     audio_file = download_audio(link)
 
@@ -81,7 +86,7 @@ def get_transcription(link):
 
 
 def generate_blog_from_transcription(transcription):
-    # Ensure the API key is set in the environment variables
+    # openai key 
     
     openai.api_key = openai.api_key =  os.environ.get("OPENAI_KEY")
 
@@ -122,6 +127,7 @@ def blog_details(request, pk):
     else:
         return redirect('/')
 
+#login auth
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -137,6 +143,7 @@ def user_login(request):
 
     return render(request, 'login.html')
 
+#signup auth
 def user_signup(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -151,7 +158,7 @@ def user_signup(request):
                 login(request, user)
                 return redirect('/')
             except:
-                error_message = 'Error creatinf account'
+                error_message = 'Error creating account'
             return render(request, 'signup.html', {'error_message':error_message})
         else:
             error_message = 'Password do not match'
