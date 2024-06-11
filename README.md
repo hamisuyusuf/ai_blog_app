@@ -8,15 +8,17 @@ Generate high-quality blogs from YouTube videos using artificial intelligence. S
 
 Live Demo
 
-    Link to the deployed site: [https://ai-blog-app-ar6v.onrender.com] 
+Link to the deployed site: https://ai-blog-app-ar6v.onrender.com
+![Untitled design(1)](https://github.com/hamisuyusuf/ai_blog_app/assets/111646226/7e32c217-a1cc-4d0a-8450-33f632c9a806)
+
+ 	
+
+
 
 Author
 
-        Hamsiu Yusuf: https://www.linkedin.com/in/hamisu-yusuf
+Hamsiu Yusuf: https://www.linkedin.com/in/hamisu-yusuf
 
-Installation
-
-Clear instructions on how to install and set up your project for users. Include any dependencies or specific software requirements.
 
 Here's how it works:
 
@@ -35,6 +37,8 @@ Here are some related projects to the AI-powered YouTube video to blog article g
 
    1. Jasper (https://www.jasper.ai/): This is a popular AI writing assistant that offers various content creation features, including summarizing text and creating blog outlines.
    2. Trint (https://trint.com/): This platform focuses on transcribing audio and video content. It can be a useful companion tool if you want a more granular understanding of the YouTube video before feeding it into your AI for article generation.
+
+![MY APP](https://github.com/hamisuyusuf/ai_blog_app/assets/111646226/ec78f633-25ea-477f-a74b-461de6707632)
 
 
 
