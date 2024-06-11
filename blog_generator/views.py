@@ -14,7 +14,7 @@ import openai
 from .models import BlogPost
 
 
-# Here are my views .
+# Here are my views.
 
 
 @login_required
